@@ -18,17 +18,6 @@ public class NamingServer extends HttpServlet{
         //check status existing nodes,if no response --> removeNode
     }
 
-
-    /**
-     * string omzetten naar integer tussen 0 en 32768
-     *
-     * @param string
-     * @return
-     */
-    public Integer hashing(String string) {
-        //todo
-        return null;
-    }
     public int storeHashMap(){
             // stores the hashmap locally in an xml file
             return 0;
