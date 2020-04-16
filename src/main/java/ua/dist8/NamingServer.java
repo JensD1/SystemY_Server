@@ -1,4 +1,4 @@
-package ua.dist8;
+package ua.dist8;git a
 import java.net.InetAddress;
 import java.util.HashMap;
 import java.io.IOException;
@@ -73,6 +73,7 @@ public class NamingServer {
 
 
         //get all filenames from the node --> replication
+        // response the amount of existing nodes in the network
 
 
     }
