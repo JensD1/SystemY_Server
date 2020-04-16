@@ -1,4 +1,4 @@
-package ua.dist8;git a
+package ua.dist8;
 import java.net.InetAddress;
 import java.util.HashMap;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
-public class NamingServer {
+public class NamingServer extends HttpServlet{
 
     private HashMap<Integer, InetAddress> nodesHashMap = new HashMap<Integer, InetAddress>();
 

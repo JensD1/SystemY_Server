@@ -1,7 +1,7 @@
 # SystemY
 This is a distributed file server.
 
-TODO
+##TODO
 - HASHING (seperate class) -> Samer
 
 - REST NAMING SERVER (namingserver.java)
