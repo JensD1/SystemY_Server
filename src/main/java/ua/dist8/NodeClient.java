@@ -1,5 +1,10 @@
 package ua.dist8;
+import netscape.javascript.JSObject;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -56,51 +61,55 @@ public class NodeClient {
 
         return 1;
     }
+
+    public void sendUnicastMessage(InetAddress toSend, Integer currentID, Integer newNodeID) throws IOException {
+        Socket socket = new Socket(toSend, 5000);
+        OutputStream outputStream = socket.getOutputStream();
+        JSONObject json = new JSONObject();
+        json.put("typeOfNode", "CL");
+        json.put("currentID", currentID.toString());
+        json.put("newNodeID", newNodeID);
+        outputStream.write(json.toString().getBytes());
+        outputStream.flush();
+        outputStream.close();
+        socket.close();
+    }
   
-    public int receiveUnicastMessage() throws Exception{
+    public void receiveUnicastMessage() throws Exception{
         Integer receivedNumberOfMessages = 0;
         Boolean leaveWhile = Boolean.FALSE;
 
         //Initialize socket
-        System.out.println("Waiting for respons of a multicast boodstrap.");
+        System.out.println("Waiting for response of a multicast bootstrap.");
         ServerSocket serverSocket = new ServerSocket(5000);
+        do{// make threaded!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            Socket clientSocket = serverSocket.accept();
+            InputStream clientInput = clientSocket.getInputStream();
+            byte[] contents = new byte[10000]; // pas dit nog aan !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        Socket clientSocket = serverSocket.accept();
-
-        do{
-            InputStream is = socket.getInputStream(); // Try to read an incomming unicast message.
-            if( reveivedMessage){
-                //readmessage
+            if( clientInput.read(contents) != -1){ // the message is not empty.
+                String message = new String(contents);
+                JSONObject json = new JSONObject(message);
                 receivedNumberOfMessages++;
-                if(vanNameServer && aantalNodes <= 0){
-                    leaveWhile = Boolean.TRUE; // er is maar 1 bericht dat ontvangen moest worden en dit is ontvangen
+                if(json.getString("typeOfNode").equals("NS")){ // Als het bericht komt van de NamingServer
+                    if(json.getString("amountOfNodes").equals("0")) // The JSON object of a NamingServer needs to contain this field.
+                        leaveWhile = Boolean.TRUE; // er is maar 1 bericht dat ontvangen moest worden en dit is ontvangen
+                        nextID = hashing.createHash(nodeName);
+                        previousID = hashing.createHash(nodeName);
                 }
-                if(vanNode){
-                    // handel dit verder af.
+                if(json.getString("typeOfNode").equals("CL")){
+                    Integer currentID = Integer.parseInt(json.getString("currentID")); // The other ones ID
+                    Integer newNodeID = Integer.parseInt(json.getString("newNodeID")); // Your own ID
+                    if(currentID > newNodeID){
+                        nextID = currentID;
+                    }
+                    else{
+                        previousID = currentID;
+                    }
                 }
             }
+            clientInput.close();
+            clientSocket.close();
         }while(!leaveWhile && receivedNumberOfMessages<3);
-        return 0;
-    }
-
-    //Initialize socket
-        System.out.println("Client started working.");
-        System.out.println(InetAddress.getByName("host2"));
-    Socket socket = new Socket(InetAddress.getByName("host2"), 5000);
-    byte[] contents = new byte[10000];
-
-    //Initialize the FileOutputStream to the output file's full path.
-    InputStream is = socket.getInputStream(); // I want to receive a file from the server.
-
-    //Number of bytes read in one read() call
-    int bytesRead = 0;
-
-        is.read(contents);
-        socket.close();
-
-        System.out.println("File saved successfully!");
-
-    public int sendUnicastMessage(){
-        return 0;
     }
 }
