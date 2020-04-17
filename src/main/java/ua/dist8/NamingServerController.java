@@ -18,7 +18,9 @@ public class NamingServerController {
         InetAddress ip = null;
         Hashing hash = new Hashing();
         Integer fileHash = hash.createHash(filename);
-        // do hashtable lookup
+        // networktreemap nwt = mew networktreemap()
+        // nwt.findadress(fileHash)
+        //        // do hashtable lookup
         // temporary value
         try {
             ip = InetAddress.getLocalHost(); // = findIpadress(fileHash)
