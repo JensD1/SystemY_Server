@@ -7,30 +7,19 @@ import java.net.*;
 
 public class NodeClient {
 
-    private static InetAddress MCgroup;
-
-    static {
-        try {
-            MCgroup = InetAddress.getByName("192.1.1.69");
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void main(String[] args) throws IOException {
-
+    public void multicast() throws IOException {
+        InetAddress MCgroup = InetAddress.getByName("192.1.1.69");
+        InetAddress nodeIP = InetAddress.getByName("192.1.1.3");
         JSONObject obj = new JSONObject();
         Hashing h = new Hashing();
         obj.put("name", "node1");
-        obj.put("ip", MCgroup);
+        obj.put("ip",nodeIP );
         MulticastSocket ms = new MulticastSocket(6012);
-
         ms.joinGroup(MCgroup);
         byte[] contents = obj.toString().getBytes();
         DatagramPacket packet = new DatagramPacket(contents,contents.length, MCgroup, 6012);
         ms.send(packet);
         //ms.leaveGroup(ms.getLocalSocketAddress(), NetworkInterface.getByInetAddress(group));
-
 
     }
 
@@ -44,17 +33,10 @@ public class NodeClient {
             if (recv.getLength()>0){
 
                 String s = new String(String.valueOf(recv));
-                JSONParser parser = new JSONParser();
-                JSONObject json = (JSONObject) parser.parse(stringToParse);
-
-
-                receivedmulticast(recv);
+                JSONObject jsonObject = new JSONObject(s);
+                receivedmulticast(jsonObject);
 
             }
-
         }
-
     }
-
-
 }
