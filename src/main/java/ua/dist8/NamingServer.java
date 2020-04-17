@@ -6,23 +6,22 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONObject;
 
 public class NamingServer extends HttpServlet{
 
     /**
      * The private fields (objects) of a Naming server.
      */
-    static private TreeMap<Integer, InetAddress> nodesHashMap;
+    static private TreeMap<Integer, InetAddress> nodesTreeMap;
     private Hashing hashing;
 
     /**
      * The constructor of a NamingServer where the hashing and nodesHashMap objects
      * will be created.
      */
-    NamingServer(){
+    public NamingServer(){
         hashing = new Hashing();
-        nodesHashMap = new TreeMap<Integer, InetAddress>();
+        nodesTreeMap = new TreeMap<Integer, InetAddress>();
     }
 
     /**
@@ -34,9 +33,9 @@ public class NamingServer extends HttpServlet{
      */
     public int receivedMulticast(String nodeName, InetAddress nodeIP){
         Integer nodeHash = hashing.createHash(nodeName);
-        nodesHashMap.put(nodeHash, nodeIP);
+        nodesTreeMap.put(nodeHash, nodeIP);
         // The -1 serves its purpose by making sure that the last added node is not included.
-        return (nodesHashMap.size() - 1);
+        return (nodesTreeMap.size() - 1);
     }
 
     public static void main(String[] args) {

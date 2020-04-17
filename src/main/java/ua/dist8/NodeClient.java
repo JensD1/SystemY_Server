@@ -35,6 +35,7 @@ public class NodeClient {
      */
     public int receivedMulticast(String receivedNodeName, InetAddress nodeIP)
     {
+
         Integer hash = hashing.createHash(receivedNodeName);
 
         try {
