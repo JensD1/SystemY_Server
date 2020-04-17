@@ -44,7 +44,6 @@ public class NamingServer extends HttpServlet{
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String requestUrl = request.getRequestURI();
-        //Extract accountName from the URL
         String fileName = requestUrl.substring("/SystemY/".length());
         //hash filename
         //get nodeId from hashmap
