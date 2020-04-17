@@ -5,6 +5,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.InetAddress;
 
+/**
+ *  takes a http request of format /fileRequest?filename="name"
+ *  calculates the hash value of filename
+ *  uses the hash to extract the file location from the hashmap
+ *  returns the ip address of the node that contains the file
+ */
 @RestController
 public class NamingServerController {
     @GetMapping("/fileRequest")

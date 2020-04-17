@@ -21,7 +21,7 @@ public class NamingServer extends HttpServlet{
      */
     public NamingServer(){
         hashing = new Hashing();
-        nodesTreeMap = new TreeMap<Integer, InetAddress>();
+        nodesTreeMap = new TreeMap<>();
     }
 
     /**
