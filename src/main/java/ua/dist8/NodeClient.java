@@ -9,7 +9,7 @@ public class NodeClient {
 
     public void multicast() throws IOException {
         InetAddress MCgroup = InetAddress.getByName("192.1.1.69");
-        InetAddress nodeIP = InetAddress.getByName("192.1.1.3");
+        InetAddress nodeIP = InetAddress.getLocalHost();
         JSONObject obj = new JSONObject();
         Hashing h = new Hashing();
         obj.put("name", "node1");
@@ -25,6 +25,7 @@ public class NodeClient {
 
     public void receiveMC () throws IOException {
         MulticastSocket ms = new MulticastSocket(6012);
+        InetAddress MCgroup = InetAddress.getByName("192.1.1.69");
         ms.joinGroup(MCgroup);
         while(true){
             byte[] buf = new byte[1000];
