@@ -1,5 +1,4 @@
 package ua.dist8;
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -54,11 +53,26 @@ public class NodeClient {
 
         return 1;
     }
-
-    public int sendUnicastMessage()
-    {
+  
+    public int receiveUnicastMessage(){
+        Integer receivedNumberOfMessages = 0;
+        Boolean leaveWhile = Boolean.FALSE;
+        do{
+            if( reveivedMessage){
+                //readmessage
+                receivedNumberOfMessages++;
+                if(vanNameServer && aantalNodes <= 0){
+                    leaveWhile = Boolean.TRUE; // er is maar 1 bericht dat ontvangen moest worden en dit is ontvangen
+                }
+                if(vanNode){
+                    // handel dit verder af.
+                }
+            }
+        }while(!leaveWhile && receivedNumberOfMessages<3);
         return 0;
     }
 
-
+    public int sendUnicastMessage(){
+        return 0;
+    }
 }
