@@ -55,10 +55,14 @@ public class NetworkHashMap {
     }
 
     // Method to add node to map.
-    public void addNode(InetAddress address){
+    public int addNode(InetAddress address){
         Hashing hash = new Hashing();
         Integer hashValue = hash.createHash(address.getHostName());
-        nodesHashMap.put(hashValue, address);
+        if(!nodesHashMap.containsKey(hashValue)) {
+            nodesHashMap.put(hashValue, address);
+            return 0;
+        }
+        return -1;
     }
 
     // Method to remove node from map.
@@ -68,4 +72,7 @@ public class NetworkHashMap {
         nodesHashMap.remove(hashValue, address);
     }
 
+    public int getNumberOfNodes(){
+        return (nodesHashMap.size() -1);
+    }
 }
