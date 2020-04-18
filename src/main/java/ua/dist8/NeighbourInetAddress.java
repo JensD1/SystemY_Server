@@ -13,4 +13,15 @@ public class NeighbourInetAddress {
         this.nodeHash = nodeHash;
 
     }
+    public InetAddress getPreviousNode(){
+        return previousNode;
+    }
+
+    public InetAddress getNextNode(){
+        return  nextNode;
+    }
+
+    public Integer getNodeHash() {
+        return nodeHash;
+    }
 }
