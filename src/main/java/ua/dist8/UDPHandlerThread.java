@@ -33,7 +33,7 @@ public class UDPHandlerThread extends Thread{
             e.printStackTrace();
         }
     }
-
+    //todo: return number of nodes
     private void newNode(){
         try {
             InetAddress clientAddress = datagramPacket.getAddress();
