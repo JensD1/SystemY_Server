@@ -56,10 +56,10 @@ public class UDPHandlerThread extends Thread{
             int addSuccess = hashMap.addNode(clientAddress);
             if(addSuccess == 0){
                 int numberOfNodes = hashMap.getNumberOfNodes();
-                // stuur numberOfNodes door
+                // todo maak methode respondWithUnicast fzo.
             }
             else{
-                // Stuur -1
+                // todo stuur -1
             }
             System.out.println("UDP request completed.");
         } catch (Exception ex) {
