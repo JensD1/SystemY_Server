@@ -4,8 +4,11 @@ import netscape.javascript.JSObject;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
+import java.net.Socket;
 
 
 public class UDPHandlerThread extends Thread{
@@ -56,7 +59,9 @@ public class UDPHandlerThread extends Thread{
             int addSuccess = hashMap.addNode(clientAddress);
             if(addSuccess == 0){
                 int numberOfNodes = hashMap.getNumberOfNodes();
-                // todo maak methode respondWithUnicast fzo.
+                JSONObject json = new JSONObject();
+                json.put("numberOfNodes",numberOfNodes); // todo numberOfNodes nog toepassen bij de client!!
+                sendUnicastMessage(clientAddress,json);
             }
             else{
                 // todo stuur -1
@@ -66,6 +71,18 @@ public class UDPHandlerThread extends Thread{
             System.out.println(ex);
         }
     }
+
+
+    public void sendUnicastMessage(InetAddress toSend,JSONObject json) throws IOException, JSONException {
+        Socket socket = new Socket(toSend, 5000);
+        OutputStream outputStream = socket.getOutputStream();
+        outputStream.write(json.toString().getBytes());
+        outputStream.flush();
+        outputStream.close();
+        socket.close();
+    }
+
+
 }
 
 
