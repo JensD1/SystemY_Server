@@ -1,19 +1,40 @@
 package ua.dist8;
 
+import netscape.javascript.JSObject;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 
 
-public class MulticastHandlerThread extends Thread{
-    Hashing hash;
-    DatagramPacket datagramPacket;
+public class UDPHandlerThread extends Thread{
+    private Hashing hash;
+    private DatagramPacket datagramPacket;
 
-    public MulticastHandlerThread(DatagramPacket datagramPacket){
+
+    public UDPHandlerThread(DatagramPacket datagramPacket){
         this.datagramPacket = datagramPacket;
         this.hash = new Hashing();
     }
 
     public void run() {
+        String dataString = new String(datagramPacket.getData());
+        try {
+            JSONObject json = new JSONObject(dataString);
+
+
+            if(json.getString("typeOfMsg").equals("Discovery")){
+                newNode();
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void newNode(){
         try {
             InetAddress clientAddress = datagramPacket.getAddress();
             String clientHostName = clientAddress.getHostName();
@@ -27,12 +48,10 @@ public class MulticastHandlerThread extends Thread{
             else{
                 // Stuur -1
             }
-
+            System.out.println("UDP request completed.");
         } catch (Exception ex) {
             System.out.println(ex);
         }
-
-
     }
 }
 

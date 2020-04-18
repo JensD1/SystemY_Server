@@ -5,6 +5,7 @@ package ua.dist8;
 
 import java.io.*;
 import java.net.InetAddress;
+import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.Semaphore;
@@ -72,10 +73,15 @@ public class NetworkHashMap {
      * @return address
      */
     public InetAddress getInetAddress(Integer fileHash){
-        InetAddress address = nodesHashMap.floorEntry(fileHash).getValue();
-        if(address.equals(null))
-            address = nodesHashMap.lastEntry().getValue(); //return null if map is empty
-        return address;
+
+        Map.Entry<Integer,InetAddress> addressEntry = nodesHashMap.floorEntry(fileHash);
+        if(addressEntry == null) {
+            addressEntry = nodesHashMap.lastEntry();//return null if map is empty
+            if(addressEntry == null)
+                return null;
+        }
+        System.out.println("test nullpointer succes");
+        return addressEntry.getValue();
     }
 
     /**
@@ -110,5 +116,25 @@ public class NetworkHashMap {
      */
     public int getNumberOfNodes(){
         return (nodesHashMap.size() -1);
+    }
+
+    public InetAddress getPreviousNode(Integer hash){
+        Map.Entry<Integer,InetAddress> addressEntry = nodesHashMap.lowerEntry(hash);
+        if(addressEntry == null){
+            addressEntry = nodesHashMap.lastEntry();//return null if map is empty
+            if (addressEntry == null)
+                return  null;
+        }
+        return addressEntry.getValue();
+    }
+
+    public InetAddress getNextNode(Integer hash){
+        Map.Entry<Integer,InetAddress> addressEntry = nodesHashMap.higherEntry(hash);
+        if (addressEntry==null){
+            addressEntry = nodesHashMap.firstEntry();
+            if (addressEntry==null)
+                return null;
+        }
+        return addressEntry.getValue();
     }
 }
