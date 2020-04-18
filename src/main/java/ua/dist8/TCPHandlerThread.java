@@ -22,7 +22,8 @@ public class TCPHandlerThread extends Thread{
                 JSONObject json = new JSONObject(message);
 
                 if ("shutdown".equals(json.getString("typeOfMsg"))) {
-                    //todo roep/maak de juiste functie aan!
+                    NetworkHashMap hMap = new NetworkHashMap();
+                    hMap.removeNode(clientSocket.getInetAddress());
                 }
             }
             clientInput.close();
