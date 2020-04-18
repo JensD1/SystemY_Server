@@ -12,12 +12,19 @@ public class UDPHandlerThread extends Thread{
     private Hashing hash;
     private DatagramPacket datagramPacket;
 
-
+    /**
+     * Constructor for UDPHandlerThread.
+     * @param datagramPacket UDP packet.
+     */
     public UDPHandlerThread(DatagramPacket datagramPacket){
         this.datagramPacket = datagramPacket;
         this.hash = new Hashing();
     }
 
+    /**
+     * Checks if packet concerns discovery.
+     * If so, it calls the method to add a new node to the hashmap.
+     */
     public void run() {
         String dataString = new String(datagramPacket.getData());
         try {
@@ -34,6 +41,12 @@ public class UDPHandlerThread extends Thread{
         }
     }
     //todo: return number of nodes
+
+    /**
+     * Adds a given node (corresponding to the datagram packet) to the hashmap.
+     * Sends the number of nodes already in the network to the newly added node.
+     * If the node was already in the map, it sends -1.
+     */
     private void newNode(){
         try {
             InetAddress clientAddress = datagramPacket.getAddress();
