@@ -111,4 +111,18 @@ public class NetworkHashMap {
     public int getNumberOfNodes(){
         return (nodesHashMap.size() -1);
     }
+
+    public InetAddress getPreviousNode(Integer hash){
+        InetAddress address = nodesHashMap.lowerEntry(hash).getValue();
+        if(address.equals(null))
+            address = nodesHashMap.lastEntry().getValue();
+        return address;
+    }
+
+    public InetAddress getNextNode(Integer hash){
+        InetAddress address = nodesHashMap.higherEntry(hash).getValue();
+        if (address.equals(null))
+            address = nodesHashMap.firstEntry().getValue();
+        return address;
+    }
 }
