@@ -32,7 +32,7 @@ public class NamingServerController {
         NetworkHashMap hashMap = new NetworkHashMap();
         InetAddress nextNode = hashMap.getNextNode(nodeHash);
         InetAddress previousNode = hashMap.getPreviousNode(nodeHash);
-        if (nextNode.equals(null))
+        if (nextNode == null)
             System.out.println("There are no other devices in the network, nextNode and previousNode are empty!");
         return new NeighbourInetAddress(previousNode,nextNode,nodeHash);
     }
