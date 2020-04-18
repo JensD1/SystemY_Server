@@ -1,3 +1,6 @@
+// see https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ConcurrentSkipListMap.html for more documentation on ConcurrentSkipListMap
+
+
 package ua.dist8;
 
 import java.io.*;
@@ -17,14 +20,21 @@ public class NetworkHashMap {
         nodesHashMap = new ConcurrentSkipListMap<>();
     }
 
-    // Method to load in treemap from a file stored locally.
+    /**
+     * loadHasMap loads the hashtable from a local file "NSData.ser".
+     * The file will be loaded in by using the serialization property of ConcurrentSkipListMap.
+     * The loaded file will be stored in the static variable nodesHashMap
+     * This method will only be used once on startup of the NamingServer.
+     *
+     * @throws IOException
+     */
     public void loadHashMap() throws IOException {
         ObjectInputStream objectinputstream = null;
         try {
-            FileInputStream streamIn = new FileInputStream("G:\\address.ser");
+            FileInputStream streamIn = new FileInputStream("NSData.ser");
             objectinputstream = new ObjectInputStream(streamIn);
             nodesHashMap = (ConcurrentSkipListMap<Integer, InetAddress>) objectinputstream.readObject();
-            // System.out.println(nodesHashMap.get(i));
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -34,7 +44,12 @@ public class NetworkHashMap {
         }
     }
 
-    // Method to write out treemap to a local file.
+    /**
+     * storeHashMap stores the content of nodesHashMap into local file "NSData.ser".
+     * Just like the loadHashMap, we take advantage of the serialization property of the ConcurrentSkipListMap class.
+     * Writing to the file will never happen in multiple threads which means semaphores are not needed.
+     * @throws IOException
+     */
     public void storeHashMap() throws IOException {
         ObjectOutputStream oos = null;
         FileOutputStream fout = null;
@@ -48,24 +63,52 @@ public class NetworkHashMap {
     }
 
 
-    // Method to return the corresponding inetAddress.
-    public InetAddress getInetAddress(Integer hash){
-        InetAddress address = nodesHashMap.floorEntry(hash).getValue();
+    /**
+     * getInetAdress is the method used by the REST service to get the inetAdress of the node that contains the request file (the fileHash is the hash value of the requested file).
+     * We will look for the largest key in nodesHashMap smaller than the given fileHash. We then extract the InetValue corresponding with the found key.
+     * If no such key exists, we will take the largest keyValue from the nodesHashMap.
+     * If the nodesHashMap is empty, we will return null.
+     * @param fileHash
+     * @return address
+     */
+    public InetAddress getInetAddress(Integer fileHash){
+        InetAddress address = nodesHashMap.floorEntry(fileHash).getValue();
+        if(address.equals(null))
+            address = nodesHashMap.lastEntry().getValue(); //return null if map is empty
         return address;
     }
 
-    // Method to add node to map.
-    public void addNode(InetAddress address){
+    /**
+     * This method adds the given address to the nodesHashMap.
+     * If the hostname from the adsress already exists in the nodesHashMap, we return -1, otherwise return 0.
+     *
+     * @param address
+     * @return
+     */
+    public int addNode(InetAddress address){
         Hashing hash = new Hashing();
         Integer hashValue = hash.createHash(address.getHostName());
-        nodesHashMap.put(hashValue, address);
+        if(!nodesHashMap.containsKey(hashValue)) {
+            nodesHashMap.put(hashValue, address);
+            return 0;
+        }
+        return -1;
     }
 
-    // Method to remove node from map.
+    // deze methode kan nog veranderen
     public void removeNode(InetAddress address){
         Hashing hash = new Hashing();
         Integer hashValue = hash.createHash(address.getHostName());
         nodesHashMap.remove(hashValue, address);
     }
 
+    /**
+     * returns the amount of other nodes in the network.
+     * This method gets called when a new node enters the network.
+     *
+     * @return size of nodesHashMap
+     */
+    public int getNumberOfNodes(){
+        return (nodesHashMap.size() -1);
+    }
 }

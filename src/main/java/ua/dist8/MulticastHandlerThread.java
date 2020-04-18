@@ -18,14 +18,15 @@ public class MulticastHandlerThread extends Thread{
             InetAddress clientAddress = datagramPacket.getAddress();
             String clientHostName = clientAddress.getHostName();
             Integer hashingValue = hash.createHash(clientHostName);
-            // networktreemap nwt = mew networktreemap()
-            // kijk of deze hash in de treemap zit => treemap inladen vanuit file (gecontroleerd via semaphores)
-            //int numberOfNodes = addNode()
-            //if( numberOfNodes >= 0){
-            // send number of nodes in network
-            //}
-            //else{
-            // send -1 so client knows there was a problem
+            NetworkHashMap hashMap = new NetworkHashMap();
+            int addSuccess = hashMap.addNode(clientAddress);
+            if(addSuccess == 0){
+                int numberOfNodes = hashMap.getNumberOfNodes();
+                // stuur numberOfNodes door
+            }
+            else{
+                // Stuur -1
+            }
 
         } catch (Exception ex) {
             System.out.println(ex);

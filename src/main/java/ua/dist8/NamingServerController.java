@@ -15,17 +15,18 @@ import java.net.InetAddress;
 public class NamingServerController {
     @GetMapping("/fileRequest")
     public FileLocation fileLocation(@RequestParam(value = "filename") String filename){
+        System.out.println("Reveived REST request, executing query..");
         InetAddress ip = null;
         Hashing hash = new Hashing();
         Integer fileHash = hash.createHash(filename);
-        // networktreemap nwt = mew networktreemap()
-        // nwt.findadress(fileHash)
-        //        // do hashtable lookup
-        // temporary value
+        NetworkHashMap hashMap = new NetworkHashMap();
+        InetAddress address = hashMap.getInetAddress(fileHash); // will be null if there are no entries in the hashmap
+
         try {
             ip = InetAddress.getLocalHost(); // = findIpadress(fileHash)
 
         }catch(Exception e){System.out.println(e);}
+        System.out.println("File found!, returning the location of the file");
         return new FileLocation(filename,ip);
     }
 
