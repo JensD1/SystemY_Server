@@ -11,7 +11,7 @@ public class TCPListener extends Thread{
         try {
             //Initialize socket
             ServerSocket serverSocket = new ServerSocket(5000);
-            System.out.println("Server Started ....");
+            System.out.println("Listening on port 5000 ....");
             while (true){
                 Socket clientSocket = serverSocket.accept();
                 TCPHandlerThread tcpThreadHandler = new TCPHandlerThread(clientSocket);

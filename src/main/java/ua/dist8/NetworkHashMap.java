@@ -98,6 +98,7 @@ public class NetworkHashMap {
         Integer hashValue = hash.createHash(address.getHostName());
         if(!nodesHashMap.containsKey(hashValue)) {
             nodesHashMap.put(hashValue, address);
+            System.out.println("Added node " + hashValue + " Successfully.");
             return 0;
         }
         return -1;
@@ -111,6 +112,7 @@ public class NetworkHashMap {
         Hashing hash = new Hashing();
         Integer hashValue = hash.createHash(address.getHostName());
         nodesHashMap.remove(hashValue, address);
+        System.out.println("Removed Node " + hashValue + " Successfully.");
     }
 
     /**

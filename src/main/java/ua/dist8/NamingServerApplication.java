@@ -14,6 +14,7 @@ public class NamingServerApplication {
         System.out.println("REST Server started succesfully!" );
         UDPListener udpThread = new UDPListener();
         udpThread.start();
-
+        TCPListener tcpListener = new TCPListener();
+        tcpListener.start();
     }
 }
