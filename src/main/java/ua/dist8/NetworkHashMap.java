@@ -37,7 +37,6 @@ public class NetworkHashMap {
             FileInputStream streamIn = new FileInputStream("NSData.ser");
             objectinputstream = new ObjectInputStream(streamIn);
             nodesHashMap = (ConcurrentSkipListMap<Integer, InetAddress>) objectinputstream.readObject();
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

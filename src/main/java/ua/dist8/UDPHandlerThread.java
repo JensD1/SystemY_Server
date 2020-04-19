@@ -71,7 +71,7 @@ public class UDPHandlerThread extends Thread{
     }
 
 
-    public void sendUnicastMessage(InetAddress toSend,JSONObject json) throws IOException, JSONException {
+    public void sendUnicastMessage(InetAddress toSend,JSONObject json) throws IOException {
         Socket socket = new Socket(toSend, 5000);
         OutputStream outputStream = socket.getOutputStream();
         outputStream.write(json.toString().getBytes());
