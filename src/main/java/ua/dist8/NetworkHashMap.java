@@ -37,7 +37,6 @@ public class NetworkHashMap {
             FileInputStream streamIn = new FileInputStream("NSData.ser");
             objectinputstream = new ObjectInputStream(streamIn);
             nodesHashMap = (ConcurrentSkipListMap<Integer, InetAddress>) objectinputstream.readObject();
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -94,8 +93,7 @@ public class NetworkHashMap {
      * @return
      */
     public int addNode(InetAddress address){
-        Hashing hash = new Hashing();
-        Integer hashValue = hash.createHash(address.getHostName());
+        Integer hashValue = Hashing.createHash(address.getHostName());
         if(!nodesHashMap.containsKey(hashValue)) {
             nodesHashMap.put(hashValue, address);
             System.out.println("Added node " + hashValue + " Successfully.");
@@ -109,8 +107,7 @@ public class NetworkHashMap {
      * @param address IP address of the node we want to remove.
      */
     public void removeNode(InetAddress address){
-        Hashing hash = new Hashing();
-        Integer hashValue = hash.createHash(address.getHostName());
+        Integer hashValue = Hashing.createHash(address.getHostName());
         nodesHashMap.remove(hashValue, address);
         System.out.println("Removed Node " + hashValue + " Successfully.");
     }
@@ -123,7 +120,6 @@ public class NetworkHashMap {
     public int getNumberOfNodes(){
         return (nodesHashMap.size() - 1);
     }
-
     /**
      * Gets previous node with respect to a given node in the hashmap.
      * If there is no previous node, it takes the last (highest) node (circular).

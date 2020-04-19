@@ -7,7 +7,7 @@ public class Hashing {
      * @param string The string from which we want the hash value.
      * @return hash value of given string.
      */
-    public Integer createHash(String string){
+    public static Integer createHash(String string){
         return java.lang.Math.abs(string.hashCode() % 32768);
     }
 }

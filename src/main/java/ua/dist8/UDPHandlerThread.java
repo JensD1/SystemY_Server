@@ -51,8 +51,6 @@ public class UDPHandlerThread extends Thread{
     private void newNode(){
         try {
             InetAddress clientAddress = datagramPacket.getAddress();
-            String clientHostName = clientAddress.getHostName();
-            Integer hashingValue = hash.createHash(clientHostName);
             NetworkHashMap hashMap = new NetworkHashMap();
             int addFailure = hashMap.addNode(clientAddress);
             JSONObject json = new JSONObject();
@@ -73,7 +71,7 @@ public class UDPHandlerThread extends Thread{
     }
 
 
-    public void sendUnicastMessage(InetAddress toSend,JSONObject json) throws IOException, JSONException {
+    public void sendUnicastMessage(InetAddress toSend,JSONObject json) throws IOException {
         Socket socket = new Socket(toSend, 5000);
         OutputStream outputStream = socket.getOutputStream();
         outputStream.write(json.toString().getBytes());
