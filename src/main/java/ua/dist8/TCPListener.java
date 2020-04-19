@@ -5,6 +5,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class TCPListener extends Thread{
+
+    /***
+     * Constantly listens to TCP requests.
+     * When there is an incoming request, it generates a new thread to handle it.
+     */
     @Override
     public void run() {
         System.out.println("Initializing TCP listener..." );
