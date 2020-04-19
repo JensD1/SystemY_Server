@@ -22,8 +22,8 @@ public class NamingServerApplication {
             System.out.println("NSData.ser not available! NameServer will start with empty node Database!");
         }
         System.out.println("NSData.ser loaded!...");
-        UDPListener udpThread = new UDPListener();
-        udpThread.start();
+        UDPListener udpListener = new UDPListener();
+        udpListener.start();
         TCPListener tcpListener = new TCPListener();
         tcpListener.start();
     }
