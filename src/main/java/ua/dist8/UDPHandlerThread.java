@@ -8,11 +8,13 @@ import java.io.OutputStream;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.concurrent.Semaphore;
 
 
 public class UDPHandlerThread extends Thread{
     private Hashing hash;
     private DatagramPacket datagramPacket;
+    static private Semaphore sem = new Semaphore(1);
 
     /**
      * Constructor for UDPHandlerThread.
@@ -63,6 +65,8 @@ public class UDPHandlerThread extends Thread{
             else{
                 //todo "json.put("amountOfNodes", -1);" en handel af bij de client, hou er rekening mee dat de andere nodes zich al hebben aangepast!!
             }
+            System.out.println("Sending a reply message to the sender of the discovery multicast message.");
+            Thread.sleep(1000);
             sendUnicastMessage(clientAddress, json);
             System.out.println("UDP request completed.");
         } catch (Exception ex) {
@@ -70,14 +74,15 @@ public class UDPHandlerThread extends Thread{
         }
     }
 
-
-    public void sendUnicastMessage(InetAddress toSend,JSONObject json) throws IOException {
+    public void sendUnicastMessage(InetAddress toSend,JSONObject json) throws IOException, InterruptedException {
+        sem.acquire();
         Socket socket = new Socket(toSend, 5000);
         OutputStream outputStream = socket.getOutputStream();
         outputStream.write(json.toString().getBytes());
         outputStream.flush();
         outputStream.close();
         socket.close();
+        sem.release();
     }
 
 
