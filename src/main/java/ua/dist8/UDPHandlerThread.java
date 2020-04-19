@@ -60,7 +60,7 @@ public class UDPHandlerThread extends Thread{
             if(addSuccess == 0){
                 int numberOfNodes = hashMap.getNumberOfNodes();
                 JSONObject json = new JSONObject();
-                json.put("numberOfNodes",numberOfNodes); // todo numberOfNodes nog toepassen bij de client!!
+                json.put("amountOfNodes",numberOfNodes); // todo numberOfNodes nog toepassen bij de client!!
                 sendUnicastMessage(clientAddress,json);
             }
             else{
