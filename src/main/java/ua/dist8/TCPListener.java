@@ -11,6 +11,10 @@ public class TCPListener extends Thread{
      * When there is an incoming request, it generates a new thread to handle it.
      */
     @Override
+    /***
+     * Constantly listens to TCP requests.
+     * When there is an incoming request, it generates a new thread to handle it.
+     */
     public void run() {
         System.out.println("Initializing TCP listener..." );
         try {
