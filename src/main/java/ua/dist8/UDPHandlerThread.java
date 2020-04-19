@@ -1,6 +1,5 @@
 package ua.dist8;
 
-import netscape.javascript.JSObject;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,7 +42,6 @@ public class UDPHandlerThread extends Thread{
             e.printStackTrace();
         }
     }
-    //todo: return number of nodes
 
     /**
      * Adds a given node (corresponding to the datagram packet) to the hashmap.
@@ -56,16 +54,18 @@ public class UDPHandlerThread extends Thread{
             String clientHostName = clientAddress.getHostName();
             Integer hashingValue = hash.createHash(clientHostName);
             NetworkHashMap hashMap = new NetworkHashMap();
-            int addSuccess = hashMap.addNode(clientAddress);
-            if(addSuccess == 0){
+            int addFailure = hashMap.addNode(clientAddress);
+            JSONObject json = new JSONObject();
+            json.put("typeOfMsg", "multicastReply");
+            json.put("typeOfNode", "NS");
+            if(addFailure == 0) {
                 int numberOfNodes = hashMap.getNumberOfNodes();
-                JSONObject json = new JSONObject();
-                json.put("amountOfNodes",numberOfNodes); // todo numberOfNodes nog toepassen bij de client!!
-                sendUnicastMessage(clientAddress,json);
+                json.put("amountOfNodes", numberOfNodes);
             }
             else{
-                // todo stuur -1
+                //todo "json.put("amountOfNodes", -1);" en handel af bij de client, hou er rekening mee dat de andere nodes zich al hebben aangepast!!
             }
+            sendUnicastMessage(clientAddress, json);
             System.out.println("UDP request completed.");
         } catch (Exception ex) {
             System.out.println(ex);

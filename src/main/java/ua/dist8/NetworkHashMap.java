@@ -98,13 +98,12 @@ public class NetworkHashMap {
         Integer hashValue = hash.createHash(address.getHostName());
         if(!nodesHashMap.containsKey(hashValue)) {
             nodesHashMap.put(hashValue, address);
+            System.out.println("Added node " + hashValue + " Successfully.");
             return 0;
         }
         return -1;
     }
 
-
-    // deze methode kan nog veranderen
     /**
      * Removes the given address and its hash value from the nodesHashMap.
      * @param address IP address of the node we want to remove.
@@ -113,6 +112,7 @@ public class NetworkHashMap {
         Hashing hash = new Hashing();
         Integer hashValue = hash.createHash(address.getHostName());
         nodesHashMap.remove(hashValue, address);
+        System.out.println("Removed Node " + hashValue + " Successfully.");
     }
 
     /**
@@ -121,7 +121,7 @@ public class NetworkHashMap {
      * @return Size of nodesHashMap
      */
     public int getNumberOfNodes(){
-        return (nodesHashMap.size() -1);
+        return (nodesHashMap.size() - 1);
     }
 
     /**
