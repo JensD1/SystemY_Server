@@ -103,8 +103,6 @@ public class NetworkHashMap {
         return -1;
     }
 
-
-    // deze methode kan nog veranderen
     /**
      * Removes the given address and its hash value from the nodesHashMap.
      * @param address IP address of the node we want to remove.
@@ -121,7 +119,7 @@ public class NetworkHashMap {
      * @return Size of nodesHashMap
      */
     public int getNumberOfNodes(){
-        return (nodesHashMap.size() -1);
+        return (nodesHashMap.size() - 1);
     }
 
     /**
