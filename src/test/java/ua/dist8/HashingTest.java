@@ -3,8 +3,6 @@ package ua.dist8;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class HashingTest {
     @Test
     public void testIfHashingWorks() {
