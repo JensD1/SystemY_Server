@@ -19,10 +19,8 @@ public class NamingServerController {
     @GetMapping("/fileRequest")
     public FileLocation fileLocation(@RequestParam(value = "filename") String filename){
         System.out.println("Received REST file request, executing query..");
-        Hashing hash = new Hashing();
         NetworkHashMap hashMap = new NetworkHashMap();
-
-        Integer fileHash = hash.createHash(filename);
+        Integer fileHash = Hashing.createHash(filename);
         InetAddress address = hashMap.getInetAddress(fileHash);// will be null if there are no entries in the hashmap
 
         System.out.println("File found!, returning the location of the file");

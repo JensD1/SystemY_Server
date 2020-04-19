@@ -51,8 +51,6 @@ public class UDPHandlerThread extends Thread{
     private void newNode(){
         try {
             InetAddress clientAddress = datagramPacket.getAddress();
-            String clientHostName = clientAddress.getHostName();
-            Integer hashingValue = hash.createHash(clientHostName);
             NetworkHashMap hashMap = new NetworkHashMap();
             int addFailure = hashMap.addNode(clientAddress);
             JSONObject json = new JSONObject();
