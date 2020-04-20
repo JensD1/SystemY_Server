@@ -59,10 +59,12 @@ public class UDPHandlerThread extends Thread{
             json.put("typeOfMsg", "multicastReply");
             json.put("typeOfNode", "NS");
             if(addFailure == 0) {
+                System.out.println("Successfully added node to hashmap.");
                 int numberOfNodes = hashMap.getNumberOfNodes();
-                json.put("amountOfNodes", numberOfNodes);
+                json.put("amountOfNodes", 2);
             }
             else{
+                System.out.println("Failed to add node to hashmap.");
                 json.put("amountOfNodes", -1); // en handel af bij de client, hou er rekening mee dat de andere nodes zich al hebben aangepast!!
             }
             System.out.println("Sending a reply message to the sender of the discovery multicast message.");
