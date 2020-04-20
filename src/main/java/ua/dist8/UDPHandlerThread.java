@@ -66,7 +66,7 @@ public class UDPHandlerThread extends Thread{
                 //todo "json.put("amountOfNodes", -1);" en handel af bij de client, hou er rekening mee dat de andere nodes zich al hebben aangepast!!
             }
             System.out.println("Sending a reply message to the sender of the discovery multicast message.");
-            Thread.sleep(1000); // todo verwijder dit
+            //Thread.sleep(1000); // todo verwijder dit
             sendUnicastMessage(clientAddress, json);
             System.out.println("UDP request completed.");
         } catch (Exception ex) {
