@@ -19,7 +19,7 @@ public class NamingServerController {
     @GetMapping("/fileRequest")
     public FileLocation fileLocation(@RequestParam(value = "filename") String filename){
         System.out.println("Received REST file request, executing query..");
-        NetworkHashMap hashMap = new NetworkHashMap();
+        NetworkHashMap hashMap = NetworkHashMap.getInstance();
         Integer fileHash = Hashing.createHash(filename);
         InetAddress address = hashMap.getInetAddress(fileHash);// will be null if there are no entries in the hashmap
 
@@ -36,7 +36,7 @@ public class NamingServerController {
     @GetMapping("/neighbourRequest")
     public NeighbourInetAddress neighbourInetAddress(@RequestParam(value ="nodeHash")Integer nodeHash) {
         System.out.println("Received REST neighbour request, executing query..");
-        NetworkHashMap hashMap = new NetworkHashMap();
+        NetworkHashMap hashMap = NetworkHashMap.getInstance();
         InetAddress nextNode = hashMap.getNextNode(nodeHash);
         InetAddress previousNode = hashMap.getPreviousNode(nodeHash);
         if (nextNode == null)

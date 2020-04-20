@@ -53,7 +53,7 @@ public class UDPHandlerThread extends Thread{
     private void newNode(){
         try {
             InetAddress clientAddress = datagramPacket.getAddress();
-            NetworkHashMap hashMap = new NetworkHashMap();
+            NetworkHashMap hashMap = NetworkHashMap.getInstance();
             int addFailure = hashMap.addNode(clientAddress);
             JSONObject json = new JSONObject();
             json.put("typeOfMsg", "multicastReply");

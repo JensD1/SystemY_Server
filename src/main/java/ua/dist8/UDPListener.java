@@ -17,7 +17,7 @@ public class UDPListener extends Thread {
             MulticastSocket ms = new MulticastSocket(6012);
             InetAddress MCgroup = InetAddress.getByName("224.0.0.200");
             ms.joinGroup(MCgroup);
-            NetworkHashMap networkHashMap = new NetworkHashMap();
+            NetworkHashMap networkHashMap = NetworkHashMap.getInstance();
 
 
             while (true) {

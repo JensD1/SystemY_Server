@@ -14,7 +14,7 @@ public class NamingServerApplication {
     public static void main(String[] args) {
         SpringApplication.run(NamingServerApplication.class, args);
         System.out.println("REST Server started succesfully!" );
-        NetworkHashMap networkHashMap = new NetworkHashMap();
+        NetworkHashMap networkHashMap = NetworkHashMap.getInstance();
         try {
             networkHashMap.loadHashMap();
         } catch (IOException e) {

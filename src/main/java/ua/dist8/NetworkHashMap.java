@@ -12,14 +12,20 @@ import java.util.concurrent.Semaphore;
 
 public class NetworkHashMap {
 
+    private static NetworkHashMap networkHashMap = new NetworkHashMap();
+
     // This type of sorted concurrent hashmap does not need any type of external synchronization
     // since it is already internally synchronized.
-    static private ConcurrentSkipListMap<Integer, InetAddress> nodesHashMap;
+    private ConcurrentSkipListMap<Integer, InetAddress> nodesHashMap;
+
+    public static NetworkHashMap getInstance(){
+        return networkHashMap;
+    }
 
     /**
      * Constructor for NetworkHashMap.
      */
-    public NetworkHashMap() {
+    private NetworkHashMap() {
         nodesHashMap = new ConcurrentSkipListMap<>();
     }
 
