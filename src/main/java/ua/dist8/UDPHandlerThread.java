@@ -61,7 +61,7 @@ public class UDPHandlerThread extends Thread{
             if(addFailure == 0) {
                 System.out.println("Successfully added node to hashmap.");
                 int numberOfNodes = hashMap.getNumberOfNodes();
-                json.put("amountOfNodes", 2);
+                json.put("amountOfNodes", numberOfNodes);
             }
             else{
                 System.out.println("Failed to add node to hashmap.");
