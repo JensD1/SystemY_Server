@@ -98,8 +98,8 @@ public class NetworkHashMap {
      * @param address IP address of the node we want to add.
      * @return
      */
-    public int addNode(InetAddress address){
-        Integer hashValue = Hashing.createHash(address.getHostName());
+    public int addNode(InetAddress address, String name){
+        Integer hashValue = Hashing.createHash(name);
         if(!nodesHashMap.containsKey(hashValue)) {
             nodesHashMap.put(hashValue, address);
             System.out.println("Added node " + hashValue + " Successfully.\nThe map contains: ");

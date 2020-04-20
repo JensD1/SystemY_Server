@@ -34,7 +34,7 @@ public class UDPHandlerThread extends Thread{
         try {
             JSONObject json = new JSONObject(dataString);
             if(json.getString("typeOfMsg").equals("Discovery")){
-                newNode();
+                newNode(json);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -46,27 +46,27 @@ public class UDPHandlerThread extends Thread{
      * Sends the number of nodes already in the network to the newly added node.
      * If the node was already in the map, it sends -1.
      */
-    private void newNode(){
+    private void newNode(JSONObject json){
         try {
             InetAddress clientAddress = datagramPacket.getAddress();
-            System.out.println("Hashing: " + clientAddress.getHostName());
+            System.out.println("Hashing: " + json.getString("name"));
             NetworkHashMap hashMap = NetworkHashMap.getInstance();
-            int addFailure = hashMap.addNode(clientAddress);
-            JSONObject json = new JSONObject();
-            json.put("typeOfMsg", "multicastReply");
-            json.put("typeOfNode", "NS");
+            int addFailure = hashMap.addNode(clientAddress, json.getString("name"));
+            JSONObject json2 = new JSONObject();
+            json2.put("typeOfMsg", "multicastReply");
+            json2.put("typeOfNode", "NS");
             if(addFailure == 0) {
                 int numberOfNodes = hashMap.getNumberOfNodes();
                 System.out.println("numberOfNodes = " + numberOfNodes);
-                json.put("amountOfNodes", numberOfNodes);
+                json2.put("amountOfNodes", numberOfNodes);
             }
             else{
                 System.out.println("Failed to add node to hashmap.");
-                json.put("amountOfNodes", -1); // en handel af bij de client, hou er rekening mee dat de andere nodes zich al hebben aangepast!!
+                json2.put("amountOfNodes", -1); // en handel af bij de client, hou er rekening mee dat de andere nodes zich al hebben aangepast!!
             }
             System.out.println("Sending a reply message to the sender of the discovery multicast message.");
             //Thread.sleep(1000); // todo verwijder dit
-            sendUnicastMessage(clientAddress, json);
+            sendUnicastMessage(clientAddress, json2);
             System.out.println("UDP request completed.");
         } catch (Exception ex) {
             System.out.println(ex);
