@@ -96,7 +96,11 @@ public class NetworkHashMap {
         Integer hashValue = Hashing.createHash(address.getHostName());
         if(!nodesHashMap.containsKey(hashValue)) {
             nodesHashMap.put(hashValue, address);
-            System.out.println("Added node " + hashValue + " Successfully.");
+            System.out.println("Added node " + hashValue + " Successfully.\nThe map contains: ");
+            for (Integer key : nodesHashMap.keySet())
+            {
+                System.out.println(key + ": " + nodesHashMap.get(key));
+            }
             return 0;
         }
         return -1;
