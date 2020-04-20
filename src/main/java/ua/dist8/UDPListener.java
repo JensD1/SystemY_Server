@@ -28,8 +28,8 @@ public class UDPListener extends Thread {
                 System.out.println("Packet received! Creating new thread to process the request.");
                 UDPHandlerThread thread = new UDPHandlerThread(datagramPacket); //send  the request to a separate thread
                 thread.start();
-                //networkHashMap.storeHashMap();
-                System.out.println("NSData.ser updated with current Network structure.");
+                // networkHashMap.storeHashMap(); todo
+                // System.out.println("NSData.ser updated with current Network structure.");
 
             }
         } catch (Exception e) {

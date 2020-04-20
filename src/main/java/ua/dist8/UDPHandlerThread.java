@@ -33,13 +33,9 @@ public class UDPHandlerThread extends Thread{
         String dataString = new String(datagramPacket.getData());
         try {
             JSONObject json = new JSONObject(dataString);
-
-
             if(json.getString("typeOfMsg").equals("Discovery")){
                 newNode();
             }
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -59,7 +55,6 @@ public class UDPHandlerThread extends Thread{
             json.put("typeOfMsg", "multicastReply");
             json.put("typeOfNode", "NS");
             if(addFailure == 0) {
-                System.out.println("Successfully added node to hashmap.");
                 int numberOfNodes = hashMap.getNumberOfNodes();
                 System.out.println("numberOfNodes = " + numberOfNodes);
                 json.put("amountOfNodes", numberOfNodes);
@@ -87,8 +82,6 @@ public class UDPHandlerThread extends Thread{
         socket.close();
         sem.release();
     }
-
-
 }
 
 

@@ -130,6 +130,7 @@ public class NetworkHashMap {
     public int getNumberOfNodes(){
         return (nodesHashMap.size() - 1);
     }
+
     /**
      * Gets previous node with respect to a given node in the hashmap.
      * If there is no previous node, it takes the last (highest) node (circular).
