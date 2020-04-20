@@ -15,12 +15,12 @@ public class NamingServerApplication {
         SpringApplication.run(NamingServerApplication.class, args);
         System.out.println("REST Server started succesfully!" );
         NetworkHashMap networkHashMap = NetworkHashMap.getInstance();
-        try {
-            networkHashMap.loadHashMap();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("NSData.ser not available! NameServer will start with empty node Database!");
-        }
+//        try {
+//            networkHashMap.loadHashMap();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            System.out.println("NSData.ser not available! NameServer will start with empty node Database!");
+//        }
         System.out.println("NSData.ser loaded!...");
         UDPListener udpListener = new UDPListener();
         udpListener.start();
