@@ -14,13 +14,14 @@ public class NamingServerApplication {
     public static void main(String[] args) {
         SpringApplication.run(NamingServerApplication.class, args);
         System.out.println("REST Server started succesfully!" );
-        NetworkHashMap networkHashMap = new NetworkHashMap();
-        try {
-            networkHashMap.loadHashMap();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("NSData.ser not available! NameServer will start with empty node Database!");
-        }
+        NetworkHashMap networkHashMap = NetworkHashMap.getInstance();
+        //todo inlezen file.
+//        try {
+//            networkHashMap.loadHashMap();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            System.out.println("NSData.ser not available! NameServer will start with empty node Database!");
+//        }
         System.out.println("NSData.ser loaded!...");
         UDPListener udpListener = new UDPListener();
         udpListener.start();

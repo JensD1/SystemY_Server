@@ -17,7 +17,7 @@ public class UDPListener extends Thread {
             MulticastSocket ms = new MulticastSocket(6012);
             InetAddress MCgroup = InetAddress.getByName("224.0.0.200");
             ms.joinGroup(MCgroup);
-            NetworkHashMap networkHashMap = new NetworkHashMap();
+            NetworkHashMap networkHashMap = NetworkHashMap.getInstance();
 
 
             while (true) {
@@ -28,8 +28,8 @@ public class UDPListener extends Thread {
                 System.out.println("Packet received! Creating new thread to process the request.");
                 UDPHandlerThread thread = new UDPHandlerThread(datagramPacket); //send  the request to a separate thread
                 thread.start();
-                networkHashMap.storeHashMap();
-                System.out.println("NSData.ser updated with current Network structure.");
+                // networkHashMap.storeHashMap(); todo
+                // System.out.println("NSData.ser updated with current Network structure.");
 
             }
         } catch (Exception e) {

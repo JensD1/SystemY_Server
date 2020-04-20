@@ -12,14 +12,20 @@ import java.util.concurrent.Semaphore;
 
 public class NetworkHashMap {
 
+    private static NetworkHashMap networkHashMap = new NetworkHashMap();
+
     // This type of sorted concurrent hashmap does not need any type of external synchronization
     // since it is already internally synchronized.
-    static private ConcurrentSkipListMap<Integer, InetAddress> nodesHashMap;
+    private ConcurrentSkipListMap<Integer, InetAddress> nodesHashMap;
+
+    public static NetworkHashMap getInstance(){
+        return networkHashMap;
+    }
 
     /**
      * Constructor for NetworkHashMap.
      */
-    public NetworkHashMap() {
+    private NetworkHashMap() {
         nodesHashMap = new ConcurrentSkipListMap<>();
     }
 
@@ -92,11 +98,15 @@ public class NetworkHashMap {
      * @param address IP address of the node we want to add.
      * @return
      */
-    public int addNode(InetAddress address){
-        Integer hashValue = Hashing.createHash(address.getHostName());
+    public int addNode(InetAddress address, String name){
+        Integer hashValue = Hashing.createHash(name);
         if(!nodesHashMap.containsKey(hashValue)) {
             nodesHashMap.put(hashValue, address);
-            System.out.println("Added node " + hashValue + " Successfully.");
+            System.out.println("Added node " + hashValue + " Successfully.\nThe map contains: ");
+            for (Integer key : nodesHashMap.keySet())
+            {
+                System.out.println(key + ": " + nodesHashMap.get(key));
+            }
             return 0;
         }
         return -1;
@@ -120,6 +130,7 @@ public class NetworkHashMap {
     public int getNumberOfNodes(){
         return (nodesHashMap.size() - 1);
     }
+
     /**
      * Gets previous node with respect to a given node in the hashmap.
      * If there is no previous node, it takes the last (highest) node (circular).
