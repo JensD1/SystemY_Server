@@ -1,10 +1,10 @@
-D:\OneDrive - uantwerpen\_universiteit\6e semester\Dist Syst pract\SystemY_Server\src\main\java\ua\dist8\TCPListener.java
-D:\OneDrive - uantwerpen\_universiteit\6e semester\Dist Syst pract\SystemY_Server\src\main\java\ua\dist8\UDPListener.java
-D:\OneDrive - uantwerpen\_universiteit\6e semester\Dist Syst pract\SystemY_Server\src\main\java\ua\dist8\NamingServerController.java
-D:\OneDrive - uantwerpen\_universiteit\6e semester\Dist Syst pract\SystemY_Server\src\main\java\ua\dist8\TCPHandlerThread.java
-D:\OneDrive - uantwerpen\_universiteit\6e semester\Dist Syst pract\SystemY_Server\src\main\java\ua\dist8\NetworkHashMap.java
-D:\OneDrive - uantwerpen\_universiteit\6e semester\Dist Syst pract\SystemY_Server\src\main\java\ua\dist8\Hashing.java
-D:\OneDrive - uantwerpen\_universiteit\6e semester\Dist Syst pract\SystemY_Server\src\main\java\ua\dist8\NeighbourInetAddress.java
-D:\OneDrive - uantwerpen\_universiteit\6e semester\Dist Syst pract\SystemY_Server\src\main\java\ua\dist8\FileLocation.java
-D:\OneDrive - uantwerpen\_universiteit\6e semester\Dist Syst pract\SystemY_Server\src\main\java\ua\dist8\NamingServerApplication.java
-D:\OneDrive - uantwerpen\_universiteit\6e semester\Dist Syst pract\SystemY_Server\src\main\java\ua\dist8\UDPHandlerThread.java
+C:\Users\Odemar\IdeaProjects\SystemY\src\main\java\ua\dist8\NeighbourInetAddress.java
+C:\Users\Odemar\IdeaProjects\SystemY\src\main\java\ua\dist8\NamingServerApplication.java
+C:\Users\Odemar\IdeaProjects\SystemY\src\main\java\ua\dist8\TCPHandlerThread.java
+C:\Users\Odemar\IdeaProjects\SystemY\src\main\java\ua\dist8\FileLocation.java
+C:\Users\Odemar\IdeaProjects\SystemY\src\main\java\ua\dist8\Hashing.java
+C:\Users\Odemar\IdeaProjects\SystemY\src\main\java\ua\dist8\NetworkHashMap.java
+C:\Users\Odemar\IdeaProjects\SystemY\src\main\java\ua\dist8\TCPListener.java
+C:\Users\Odemar\IdeaProjects\SystemY\src\main\java\ua\dist8\UDPListener.java
+C:\Users\Odemar\IdeaProjects\SystemY\src\main\java\ua\dist8\NamingServerController.java
+C:\Users\Odemar\IdeaProjects\SystemY\src\main\java\ua\dist8\UDPHandlerThread.java
