@@ -3,8 +3,8 @@ package ua.dist8;
 import java.net.InetAddress;
 
 public class NeighbourInetAddress {
-    private InetAddress previousNode;
-    private InetAddress nextNode;
+    private String previousNode;
+    private String nextNode;
     private Integer nodeHash;
 
     /**
@@ -13,7 +13,7 @@ public class NeighbourInetAddress {
      * @param nextNode The previous node with respect to the given node.
      * @param nodeHash The hash of the given node.
      */
-    public NeighbourInetAddress(InetAddress previousNode, InetAddress nextNode, Integer nodeHash){
+    public NeighbourInetAddress(String previousNode, String nextNode, Integer nodeHash){
         this.previousNode = previousNode;
         this.nextNode = nextNode;
         this.nodeHash = nodeHash;
@@ -24,7 +24,7 @@ public class NeighbourInetAddress {
      * Gets previous node.
      * @return previous node.
      */
-    public InetAddress getPreviousNode(){
+    public String getPreviousNode(){
         return previousNode;
     }
 
@@ -32,7 +32,7 @@ public class NeighbourInetAddress {
      * Gets next node.
      * @return next node.
      */
-    public InetAddress getNextNode(){
+    public String getNextNode(){
         return  nextNode;
     }
 

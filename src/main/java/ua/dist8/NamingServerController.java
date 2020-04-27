@@ -38,10 +38,11 @@ public class NamingServerController {
         System.out.println("Received REST neighbour request, executing query..");
         NetworkHashMap hashMap = NetworkHashMap.getInstance();
         InetAddress nextNode = hashMap.getNextNode(nodeHash);
+        String nextNodeString = nextNode.getHostName();
         InetAddress previousNode = hashMap.getPreviousNode(nodeHash);
+        String previousNodeString = previousNode.getHostName();
         if (nextNode == null)
             System.out.println("There are no other devices in the network, nextNode and previousNode are empty!");
-        return new NeighbourInetAddress(previousNode,nextNode,nodeHash);
+        return new NeighbourInetAddress(previousNodeString,nextNodeString,nodeHash);
     }
 }
-
