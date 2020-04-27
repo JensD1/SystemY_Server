@@ -116,10 +116,9 @@ public class NetworkHashMap {
      * Removes the given address and its hash value from the nodesHashMap.
      * @param address IP address of the node we want to remove.
      */
-    public void removeNode(InetAddress address){
-        Integer hashValue = Hashing.createHash(address.getHostName());
-        nodesHashMap.remove(hashValue, address);
-        System.out.println("Removed Node " + hashValue + " Successfully.");
+    public void removeNode(InetAddress address, Integer ID){
+        nodesHashMap.remove(ID, address);
+        System.out.println("Removed Node " + ID + " Successfully.");
     }
 
     /**
