@@ -66,13 +66,14 @@ public class UDPHandlerThread extends Thread{
             }
             System.out.println("Sending a reply message to the sender of the discovery multicast message.");
             //Thread.sleep(1000); // todo verwijder dit
-            sendUnicastMessage(clientAddress, json2);
+            hashMap.sendUnicastMessage(clientAddress, json2);
             System.out.println("UDP request completed.");
         } catch (Exception ex) {
             System.out.println(ex);
         }
     }
 
+    /*
     public void sendUnicastMessage(InetAddress toSend,JSONObject json) throws IOException, InterruptedException {
         sem.acquire();
         Socket socket = new Socket(toSend, 5000);
@@ -82,7 +83,7 @@ public class UDPHandlerThread extends Thread{
         outputStream.close();
         socket.close();
         sem.release();
-    }
+    } */
 }
 
 
