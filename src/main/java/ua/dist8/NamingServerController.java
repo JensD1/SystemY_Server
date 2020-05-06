@@ -28,6 +28,22 @@ public class NamingServerController {
     }
 
     /**
+     * Handles a http file request of format /nodeRequest?nodeHash="hash".
+     * Uses the hash to extract the node location from the hashmap.
+     * @param nodeHash The hash of the requested node.
+     * @return The hash of the requested file and the IP address of the node with the requested file.
+     */
+    @GetMapping("/nodeRequest")
+    public NodeLocation nodeLocation(@RequestParam(value = "nodeHash") Integer nodeHash){
+        System.out.println("Received REST node request, executing query..");
+        NetworkHashMap hashMap = NetworkHashMap.getInstance();
+        InetAddress address = hashMap.getInetAddress(nodeHash);// will be null if there are no entries in the hashmap
+
+        System.out.println("Replication destination found!, returning the location of the node");
+        return new NodeLocation(address);
+    }
+
+    /**
      * Handles a http neighbour request of format /neighbourRequest?nodeHash="hash".
      * Gets next and previous node with respect to a given node.
      * @param nodeHash hash of the given node.
