@@ -69,9 +69,9 @@ public class NamingServerController {
      */
     @GetMapping("/nodeExists")
     public NodeExists nodeExistsRequest(@RequestParam(value ="nodeHash")Integer nodeHash) {
-        System.out.println("Received REST neighbour request, executing query..");
+        System.out.println("Received REST nodeExists request, executing query..");
         NetworkHashMap hashMap = NetworkHashMap.getInstance();
-        boolean nodeExists = hashMap.getNodeExists(nodeHash);
+        Boolean nodeExists = hashMap.getNodeExists(nodeHash);
         return new NodeExists(nodeExists);
     }
 
