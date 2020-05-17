@@ -160,4 +160,12 @@ public class NetworkHashMap {
         }
         return addressEntry.getValue();
     }
+
+    public boolean getNodeExists(Integer hash) {
+        InetAddress address = nodesHashMap.get(hash);
+        boolean returnValue = true;
+        if (address == null)
+            returnValue = false;
+        return returnValue;
+    }
 }

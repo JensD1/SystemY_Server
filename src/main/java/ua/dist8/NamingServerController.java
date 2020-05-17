@@ -63,6 +63,19 @@ public class NamingServerController {
     }
 
     /**
+     * Handles a http nodeExists of format /nodeExists?nodeHash="hash".
+     * @param nodeHash hash of the given node.
+     * @return True if the node exists, false otherwise.
+     */
+    @GetMapping("/nodeExists")
+    public NodeExists nodeExistsRequest(@RequestParam(value ="nodeHash")Integer nodeHash) {
+        System.out.println("Received REST neighbour request, executing query..");
+        NetworkHashMap hashMap = NetworkHashMap.getInstance();
+        boolean nodeExists = hashMap.getNodeExists(nodeHash);
+        return new NodeExists(nodeExists);
+    }
+
+    /**
      * Handles a http numberOfNodes request of format /numberOfNodes.
      * Gets next and previous node with respect to a given node.
      * @return The number of nodes in the network
