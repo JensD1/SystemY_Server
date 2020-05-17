@@ -61,4 +61,17 @@ public class NamingServerController {
             System.out.println("There are no other devices in the network, nextNode and previousNode are empty!");
         return new NeighbourInetAddress(previousNodeString,nextNodeString,nodeHash);
     }
+
+    /**
+     * Handles a http numberOfNodes request of format /numberOfNodes.
+     * Gets next and previous node with respect to a given node.
+     * @return The number of nodes in the network
+     */
+    @GetMapping("/numberOfNodes")
+    public NumberOfNodes numberOfNodes() {
+        System.out.println("Received REST numberOfNodes request, executing query..");
+        NetworkHashMap nhm = NetworkHashMap.getInstance();
+        int numberOfNodesTemp = nhm.getNumberOfNodes();
+        return new NumberOfNodes(numberOfNodesTemp);
+    }
 }
