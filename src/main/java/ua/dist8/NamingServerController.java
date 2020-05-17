@@ -4,7 +4,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 
 @RestController
@@ -35,17 +34,12 @@ public class NamingServerController {
      * @return The hash of the requested file and the IP address of the node with the requested file.
      */
     @GetMapping("/nodeRequest")
-    public NodeLocation nodeLocation(@RequestParam(value = "nodeHash") Integer nodeHash)  {
-        InetAddress address = null;
-        try {
-            System.out.println("Received REST node request, executing query..");
-            NetworkHashMap hashMap = NetworkHashMap.getInstance();
-            address = InetAddress.getByName(hashMap.getInetAddress(nodeHash).getHostName());// will be null if there are no entries in the hashmap
+    public NodeLocation nodeLocation(@RequestParam(value = "nodeHash") Integer nodeHash){
+        System.out.println("Received REST node request, executing query..");
+        NetworkHashMap hashMap = NetworkHashMap.getInstance();
+        InetAddress address = hashMap.getInetAddress(nodeHash);// will be null if there are no entries in the hashmap
 
-            System.out.println("Replication destination found!, returning the location of the node");
-        } catch (Exception e){
-            System.err.println(e);
-        }
+        System.out.println("Replication destination found!, returning the location of the node");
         return new NodeLocation(address);
     }
 
