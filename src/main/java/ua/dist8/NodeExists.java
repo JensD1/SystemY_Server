@@ -15,7 +15,7 @@ public class NodeExists {
      * return the boolean nodeExists.
      * @return number of nodes in the network.
      */
-    public Boolean getNumberOfNodes(){
+    public Boolean getNodeExists(){
         return this.nodeExists;
     }
 }
