@@ -1,13 +1,13 @@
 package ua.dist8;
 
 public class NodeExists {
-    private Boolean nodeExists;
+    private boolean nodeExists;
 
     /**
      * Constructor for NodeExists.
      * @param nodeExists is a boolean if the node exists.
      */
-    public NodeExists(Boolean nodeExists){
+    public NodeExists(boolean nodeExists){
         this.nodeExists = nodeExists;
     }
 
@@ -15,7 +15,7 @@ public class NodeExists {
      * return the boolean nodeExists.
      * @return number of nodes in the network.
      */
-    public Boolean getNodeExists(){
+    public boolean getNodeExists(){
         return this.nodeExists;
     }
 }
