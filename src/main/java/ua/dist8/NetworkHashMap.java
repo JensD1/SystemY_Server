@@ -81,14 +81,13 @@ public class NetworkHashMap {
      * @return address
      */
     public InetAddress getInetAddress(Integer fileHash){
-
         Map.Entry<Integer,InetAddress> addressEntry = nodesHashMap.floorEntry(fileHash);
         if(addressEntry == null) {
             addressEntry = nodesHashMap.lastEntry();//return null if map is empty
             if(addressEntry == null)
                 return null;
         }
-        System.out.println("test nullpointer succes");
+        System.out.println("The requested InetAddress is: " + addressEntry.getValue().getHostName());
         return addressEntry.getValue();
     }
 
@@ -160,5 +159,13 @@ public class NetworkHashMap {
                 return null;
         }
         return addressEntry.getValue();
+    }
+
+    public boolean getNodeExists(Integer hash) {
+        InetAddress address = nodesHashMap.get(hash);
+        boolean returnValue = true;
+        if (address == null)
+            returnValue = false;
+        return returnValue;
     }
 }
