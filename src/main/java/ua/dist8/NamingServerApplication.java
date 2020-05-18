@@ -13,7 +13,7 @@ public class NamingServerApplication {
      */
     public static void main(String[] args) {
         SpringApplication.run(NamingServerApplication.class, args);
-        System.out.println("SystemY server version 1.0.5");
+        System.out.println("SystemY server version 1.0.6");
         System.out.println("REST Server started succesfully!" );
         NetworkHashMap networkHashMap = NetworkHashMap.getInstance();
         //todo inlezen file.
