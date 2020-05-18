@@ -13,6 +13,7 @@ public class NamingServerApplication {
      */
     public static void main(String[] args) {
         SpringApplication.run(NamingServerApplication.class, args);
+        System.out.println("SystemY server version 1.0.5");
         System.out.println("REST Server started succesfully!" );
         NetworkHashMap networkHashMap = NetworkHashMap.getInstance();
         //todo inlezen file.
@@ -22,7 +23,7 @@ public class NamingServerApplication {
 //            e.printStackTrace();
 //            System.out.println("NSData.ser not available! NameServer will start with empty node Database!");
 //        }
-        System.out.println("NSData.ser loaded!...");
+//        System.out.println("NSData.ser loaded!...");
         UDPListener udpListener = new UDPListener();
         udpListener.start();
         TCPListener tcpListener = new TCPListener();
