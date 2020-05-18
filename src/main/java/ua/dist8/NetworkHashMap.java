@@ -3,8 +3,11 @@
 
 package ua.dist8;
 
+import org.json.JSONObject;
+
 import java.io.*;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentSkipListMap;
@@ -13,6 +16,7 @@ import java.util.concurrent.Semaphore;
 public class NetworkHashMap {
 
     private static NetworkHashMap networkHashMap = new NetworkHashMap();
+    static private Semaphore sem = new Semaphore(1);
 
     // This type of sorted concurrent hashmap does not need any type of external synchronization
     // since it is already internally synchronized.
@@ -161,6 +165,17 @@ public class NetworkHashMap {
         return addressEntry.getValue();
     }
 
+    public void sendUnicastMessage(InetAddress toSend,JSONObject json) throws IOException, InterruptedException {
+        sem.acquire();
+        Socket socket = new Socket(toSend, 5000);
+        OutputStream outputStream = socket.getOutputStream();
+        outputStream.write(json.toString().getBytes());
+        outputStream.flush();
+        outputStream.close();
+        socket.close();
+        sem.release();
+    }
+  
     public boolean getNodeExists(Integer hash) {
         InetAddress address = nodesHashMap.get(hash);
         boolean returnValue = true;

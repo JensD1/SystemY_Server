@@ -3,7 +3,10 @@ package ua.dist8;
 import org.json.JSONObject;
 
 import java.io.InputStream;
+import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Iterator;
+import java.util.Map;
 
 public class TCPHandlerThread extends Thread{
 
@@ -29,6 +32,20 @@ public class TCPHandlerThread extends Thread{
                     NetworkHashMap hMap = NetworkHashMap.getInstance();
                     System.out.println("test print" + clientSocket.getInetAddress()+" hash value= " +json.getInt("ID") );
                     hMap.removeNode(clientSocket.getInetAddress(), json.getInt("ID"));
+                }
+
+                // Todo: Special cases of replication eg. file already locally store / no smaller hash
+                if (json.getString("typeOfMsg").equals("replicationStart")) {
+
+                    Integer fileHash = json.getInt("fileHash");
+                    NetworkHashMap hMap = NetworkHashMap.getInstance();
+                    Map.Entry<Integer, InetAddress> addressEntry = hMap.getFloorEntry(fileHash);
+                    InetAddress ipAdress = addressEntry.getValue();
+                    JSONObject jsonReplication = new JSONObject();
+                    jsonReplication.put("typeOfMsg","replicationStart");
+                    jsonReplication.put("typeOfNode","NS");
+                    jsonReplication.put("replicationAddress", ipAdress.getHostName());
+                    hMap.sendUnicastMessage(clientSocket.getInetAddress(), jsonReplication);
                 }
             }
             clientInput.close();
